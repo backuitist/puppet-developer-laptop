@@ -7,11 +7,12 @@ class maven {
     group  => $real_id
   }
 
-  $maven_dir = "${home}/bin/apache-maven-3.2.5"  
+  $maven_version = '3.3.9'
+  $maven_dir = "${home}/bin/apache-maven-${maven_version}"  
   $maven_dir_exists = "/usr/bin/test -d ${maven_dir}"
-  $maven_tmp = '/tmp/apache-maven-3.2.5.tgz'
+  $maven_tmp = "/tmp/apache-maven-${maven_version}.tgz"
 
-  wget::fetch { 'http://www.pirbot.com/mirrors/apache/maven/maven-3/3.2.5/binaries/apache-maven-3.2.5-bin.tar.gz':
+  wget::fetch { "http://www.pirbot.com/mirrors/apache/maven/maven-3/${maven_version}/binaries/apache-maven-${maven_version}-bin.tar.gz":
     destination => $maven_tmp,
     unless      => $maven_dir_exists
   }
